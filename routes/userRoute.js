@@ -1,5 +1,5 @@
 const express = require("express");
-const { getUsers } = require("../controllers/userController");
+const { getUsers, getUsersCountByMonth } = require("../controllers/userController");
 
 
 const router = express.Router();
@@ -7,6 +7,8 @@ const router = express.Router();
 router
   .route("/allusers")
   .get(getUsers);
+
+  router.route("/getUsersCountByMonth/:year").get(getUsersCountByMonth);
 
 
 module.exports = router;
