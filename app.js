@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const userRoute = require("./routes/userRoute");
 const eventRoute = require("./routes/eventRoute");
+const ordersRoute = require("./routes/ordersRoute");
 
 const app = express();
 // 1) middleware
@@ -18,6 +19,7 @@ app.use(cors({
 // 3) Routes
 app.use("/api/v1/admin", userRoute);
 app.use("/api/v1/adminEvent", eventRoute);
+app.use("/api/v1/adminOrders", ordersRoute);
 
 
 // 4) Server
