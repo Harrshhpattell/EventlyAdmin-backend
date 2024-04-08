@@ -52,3 +52,22 @@ exports.getEventsCountByMonth = async (req, res) => {
   }
 }
 
+// Function to delete an event by ID
+exports.deleteEvent = async (req, res) => {
+  const eventId = req.params.id;
+
+  try {
+    // Check if the event exists
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // Delete the event
+    await Event.findByIdAndDelete(eventId);
+    res.json({ message: 'Event deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting event:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}

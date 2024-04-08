@@ -5,7 +5,7 @@ const app = require("./app");
 
 const DB = process.env.MONGODB_URI;
 mongoose
-  .connect(DB, { dbName: "Evently", bufferCommands: false })
+  .connect(DB, { dbName: "Evently" })
   .then(() => console.log("DB connection successfull"));
 
 const port = process.env.PORT;
