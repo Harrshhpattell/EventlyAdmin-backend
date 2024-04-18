@@ -12,43 +12,44 @@ exports.getOrders = async (req, res) => {
 };
 
   
-// exports.getUsersCountByMonth = async (req, res) => {
-//   try {
-//     const year = req.params.year * 1;
 
-//     const plan = await User.aggregate([
-//       {
-//         $match: {
-//           createdAt: {
-//             $gte: new Date(`${year}-01-01`),
-//             $lte: new Date(`${year}-12-31`),
-//           },
-//         },
-//       },
-//       {
-//         $group: {
-//           _id: { $month: "$createdAt" },
-//           numUsers: { $sum: 1 },
-//         },
-//       },
-//       {
-//         $sort: { "_id": 1 },
-//       }
-//     ]);
+exports.getOrdersCountByMonth = async (req, res) => {
+  try {
+    const year = req.params.year * 1;
 
-//     // Initialize an array to store the number of users for each month
-//     const monthlyUsers = new Array(12).fill(0);
+    const orders = await Orders.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: new Date(`${year}-01-01`),
+            $lte: new Date(`${year}-12-31`),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { $month: "$createdAt" },
+          numOrders: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { "_id": 1 },
+      }
+    ]);
 
-//     // Update the monthlyUsers array with the values from the aggregation result
-//     plan.forEach(monthData => {
-//       const monthIndex = monthData._id - 1; // Month is 1-indexed
-//       monthlyUsers[monthIndex] = monthData.numUsers;
-//     });
+    // Initialize an array to store the number of orders for each month
+    const monthlyOrders = new Array(12).fill(0);
 
-//     res.json(monthlyUsers);
-//   } catch (error) {
-//     console.error('Error fetching monthly user count:', error);
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// }
+    // Update the monthlyOrders array with the values from the aggregation result
+    orders.forEach(monthData => {
+      const monthIndex = monthData._id - 1; // Month is 1-indexed
+      monthlyOrders[monthIndex] = monthData.numOrders;
+    });
+
+    res.json(monthlyOrders);
+  } catch (error) {
+    console.error('Error fetching monthly order count:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
 
