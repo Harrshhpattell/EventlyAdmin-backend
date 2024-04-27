@@ -25,9 +25,9 @@ exports.signupUser = async (data) => {
 
 exports.loginUser = async (data) => {
   const { email, password } = data;
-  const AdminAuth = await AdminAuth.findOne({ email });
+  const Adminauth = await AdminAuth.findOne({ email });
 
-  if (!AdminAuth) {
+  if (!Adminauth) {
     const statusCode = 401;
     const success = false;
     const result = { message: "Invalid email" };
@@ -35,7 +35,7 @@ exports.loginUser = async (data) => {
   }
 
   // Compare passwords
-  const isPasswordValid = await bcrypt.compare(password, AdminAuth.password);
+  const isPasswordValid = await bcrypt.compare(password, Adminauth.password);
 
   if (!isPasswordValid) {
     const statusCode = 401;
@@ -45,8 +45,8 @@ exports.loginUser = async (data) => {
   }
 
   // Password is valid, generate token
-  const token = signToken(AdminAuth._id);
-  result = { message: "AdminAuth verified successfully", token, AdminAuth };
+  const token = signToken(Adminauth._id);
+  result = { message: "AdminAuth verified successfully", token, Adminauth };
   success = true;
   statusCode = 200;
 
