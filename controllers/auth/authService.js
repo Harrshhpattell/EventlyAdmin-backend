@@ -70,6 +70,7 @@ const {
         return res.status(401).json({ success: false, error: userNotFindError });
       }
       req.userId = decoded.id;
+      // console.log("UserID:", req.userId);
       // Authentication successful, call next middleware or route handler
       next();
     } catch (error) {

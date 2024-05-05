@@ -34,6 +34,14 @@ exports.loginUser = async (data) => {
     return { result, success, statusCode };
   }
 
+    // Check admin status
+    if (Adminauth.status === "blocked") {
+      const statusCode = 401;
+      const success = false;
+      const result = { message: "Your Evently Admin account is temporarily blocked" };
+      return { result, success, statusCode };
+    }
+
   // Compare passwords
   const isPasswordValid = await bcrypt.compare(password, Adminauth.password);
 

@@ -14,14 +14,23 @@ const adminAuthSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    // required: [true, "please provide a password"],
     minlength: 8,
   },
   passwordConfirm: {
     type: String,
-    // required: [true, "please confirm your password"],
+  },
+  masterAdmin: {
+    type: String,
+    enum: ['active', 'notactive'],
+    default: 'notactive',
+  },
+  status: {
+    type: String,
+    enum: ['active', 'blocked'],
+    default: 'active',
   },
 });
+
 
 adminAuthSchema.pre("save", async function (next) {
   // only run this function if pass was actually modified
