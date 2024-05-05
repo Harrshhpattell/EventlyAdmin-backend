@@ -4,6 +4,7 @@ const userRoute = require("./routes/userRoute");
 const eventRoute = require("./routes/eventRoute");
 const ordersRoute = require("./routes/ordersRoute");
 const authAdminRoute = require("./routes/authAdminRoute");
+const categoryRoute = require("./routes/categoryRoute");
 
 const app = express();
 // 1) middleware
@@ -23,6 +24,7 @@ app.use("/api/v1/admin", userRoute);
 app.use("/api/v1/adminEvent", eventRoute);
 app.use("/api/v1/adminOrders", ordersRoute);
 app.use("/api/v1", authAdminRoute);
+app.use("/api/v1/category", categoryRoute);
 
 
 // 4) Server
